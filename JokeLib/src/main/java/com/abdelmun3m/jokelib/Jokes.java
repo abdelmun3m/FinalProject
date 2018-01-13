@@ -12,19 +12,19 @@ public class Jokes {
         myJokes = new ArrayList<String>();
 
 
-        myJokes.add("this is my 0 joke");
-        myJokes.add("this is my 1 joke");
-        myJokes.add("this is my 2 joke");
-        myJokes.add("this is my 3 joke");
-        myJokes.add("this is my 4 joke");
-        myJokes.add("this is my 5 joke");
-        myJokes.add("this is my 6 joke");
-        myJokes.add("this is my 7 joke");
-        myJokes.add("this is my 8 joke");
-        myJokes.add("this is my 9 joke");
-        myJokes.add("this is my 10 joke");
-        myJokes.add("this is my 11 joke");
-        myJokes.add("this is my 12 joke");
+        myJokes.add("Where do you find reindeer?,It depends on where you leave them!");
+        myJokes.add("Who is a Christmas tree’s favorite singer?,Spruce Springsteen");
+        myJokes.add("What’s Santa’s favorite snack food?,Crisp Pringles");
+        myJokes.add("How is the alphabet different on Christmas than any other day?, On Christmas, it has Noel");
+        myJokes.add("Why didn’t Rudolph get a good report card?,Because he went down in History");
+        myJokes.add("What Do You Sing At An Elf’s Birthday Party?,Freeze A Jolly Good Fellow!");
+        myJokes.add("What cars do elves drive?,A toyYoda");
+        myJokes.add("How did Scrooge win the football game?, The ghost of Christmas passed");
+        myJokes.add("What do you call Santa’s helpers?,Subordinate Clauses");
+        myJokes.add("What is Santa’s primary language?,North Polish");
+        myJokes.add("What do reindeer say before they tell a joke?,This will sleigh you");
+        myJokes.add("Why did they couple get hitched on the 24 of December?,So they could have a married Christmas");
+        myJokes.add("How do you lift a frozen car?,With a Jack Frost");
 
     }
 

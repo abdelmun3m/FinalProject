@@ -8,20 +8,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.abdelmun3m.jokediaplay.DisplayActivity;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
-
-import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    ProgressBar load;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,42 +46,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... voids) {
-
-                 MyApi myApiService = null;
-
-                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
-                         new AndroidJsonFactory(), null)
-                .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                    @Override
-                    public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                        abstractGoogleClientRequest.setDisableGZipContent(true);
-                    }
-                });
-
-                myApiService = builder.build();
-
-                String res = "";
-                try {
-                    res = myApiService.getJoke().execute().getData();
-                } catch (IOException e) {
-                    res  = e.getMessage();
-                }
-                return res;
-            }
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                //Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(MainActivity.this, DisplayActivity.class);
-                i.putExtra("joke",s);
-                startActivity(i);
-            }
-        }.execute();
+          //  fetchJoke();
+        load = findViewById(R.id.load);
+        load.setVisibility(View.VISIBLE);
+        new fetchJoke(this).execute();
     }
-
 
 }
