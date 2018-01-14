@@ -15,6 +15,7 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by abdelmun3m on 12/01/18.
@@ -22,14 +23,17 @@ import java.io.IOException;
 
 public class fetchJoke extends AsyncTask<Void , Void , String> {
 
-    Context context ;
-    private String result = "";
-    ProgressBar load ;
+    Context context =null;
+    ProgressBar load  = null;
+    CountDownLatch signal = null;
 
+    private String result = "";
     fetchJoke(MainActivity activity){
         this.context = (Context) activity;
         this.load = activity.load;
-
+    }
+    fetchJoke(CountDownLatch signal){
+        this.signal = signal;
     }
     @Override
     protected String doInBackground(Void... voids) {
@@ -42,6 +46,8 @@ public class fetchJoke extends AsyncTask<Void , Void , String> {
             Intent i = new Intent(context, DisplayActivity.class);
             i.putExtra("joke",s);
             context.startActivity(i);
+        }else if(signal != null){
+            signal.countDown();
         }
     }
     public String getRes(){

@@ -7,6 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 
 /**
@@ -14,17 +17,22 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest{
-    fetchJoke mytest = new fetchJoke(null);
 
-    @Before
-    public void testFetch(){
-        Log.d("A7A","test : testfetch");
-        mytest.fetch();
-    }
     @Test
-    public void t(){
-        Log.d("A7A","test : t");
-        assertNotEquals("",mytest.getRes());
+    public void testFetchJokes(){
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        fetchJoke  mytest = new fetchJoke(signal);
+        mytest.execute();
+
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+            assertNotEquals("",mytest.getRes());
+          //  assertEquals("",mytest.getRes());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
