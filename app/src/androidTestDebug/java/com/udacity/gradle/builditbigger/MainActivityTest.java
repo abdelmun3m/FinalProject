@@ -25,14 +25,29 @@ public class MainActivityTest{
 
         fetchJoke  mytest = new fetchJoke(signal);
         mytest.execute();
-
         try {
             signal.await(30, TimeUnit.SECONDS);
             assertNotEquals("",mytest.getRes());
-          //  assertEquals("",mytest.getRes());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testNotError(){
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        fetchJoke  mytest = new fetchJoke(signal);
+        mytest.execute();
+
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+            assertNotEquals("error",mytest.getRes());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

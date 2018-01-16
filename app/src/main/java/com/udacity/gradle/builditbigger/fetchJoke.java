@@ -27,7 +27,7 @@ public class fetchJoke extends AsyncTask<Void , Void , String> {
     ProgressBar load  = null;
     CountDownLatch signal = null;
 
-    private String result = "";
+    public String result = "";
     fetchJoke(MainActivity activity){
         this.context = (Context) activity;
         this.load = activity.load;
@@ -47,6 +47,9 @@ public class fetchJoke extends AsyncTask<Void , Void , String> {
             i.putExtra("joke",s);
             context.startActivity(i);
         }else if(signal != null){
+            if(!s.contains("joke:")){
+                this.result= "error";
+            }
             signal.countDown();
         }
     }
@@ -55,7 +58,6 @@ public class fetchJoke extends AsyncTask<Void , Void , String> {
     }
     public String fetch(){
         MyApi myApiService = null;
-        Log.d("A7A","inback");
         MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                 new AndroidJsonFactory(), null)
                 .setRootUrl("http://10.0.2.2:8080/_ah/api/")
@@ -65,16 +67,13 @@ public class fetchJoke extends AsyncTask<Void , Void , String> {
                         abstractGoogleClientRequest.setDisableGZipContent(true);
                     }
                 });
-
         myApiService = builder.build();
-
         String res = "" ;
         try {
             res = myApiService.getJoke().execute().getData();
         } catch (IOException e) {
             res  = e.getMessage();
         }
-        result = res;
         return res;
     }
 }
